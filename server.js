@@ -110,7 +110,7 @@ app.get('/utilisateursrole', function(req, res){
   });
 
   app.get('/restaurantsMenu', function(req,res){
-    con.query('select * from restaurants R join menusdujour M on R.id = M.restaurant_id', function(error, rows, fields){
+    con.query('select * from restaurants R join menusdujour M on R.id = M.restaurant_id join medias U on U.restaurant_id = M.restaurant_id', function(error, rows, fields){
       if(error) console.log(error);
       else{
          console.log("rows of restaurantsMenu: ",rows);
@@ -121,9 +121,8 @@ app.get('/utilisateursrole', function(req, res){
 
   // pour la page de ensavoir plus
   app.get('/joursouvertures/:restaurant_id', function(req,res){
-    //   var id = req.params.restaurant_id;
-con.query('select * from horairesouverture O join restaurants R on O.restaurant_id = R.id join menusdujour M on M.restaurant_id = R.id where R.id =' +req.params.restaurant_id,
-//con.query('select * from horairesouverture where restaurant_id ='+req.params.restaurant_id,
+con.query('select * from horairesouverture O join restaurants R on O.restaurant_id = R.id join menusdujour M on M.restaurant_id = R.id join medias S on S.restaurant_id = M.restaurant_id where R.id =' +req.params.restaurant_id,
+
 function(error, rows, fields){
    
       if(error) console.log(error);
