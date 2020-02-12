@@ -21,6 +21,7 @@ import {
 
 
 import Programme from './Programme';
+import Communications, { phonecall } from 'react-native-communications';
 const {width, height} = Dimensions.get('window');
 
 
@@ -48,6 +49,14 @@ export default class SavoiPlusScreen extends Component {
  
      componentDidMount(){
          this.fetchData();
+    }
+
+    shareMenu(rowData){
+        Share.share({
+            message: "Menu du jour: "+ rowData.nom+ "  Entrées : \n \t -" + rowData.entree1 + "\n  \t \t - "+ rowData.entree2 + "\n Plats : \n \t \t-" + rowData.plat1 +"\n" + rowData.plat2 +
+             "\n Dessert: \n \t -" + rowData.dessert1 + "\n  \t \t - "+ rowData.dessert2 +  " \n  Prix : " + rowData.prixEPD + " euros ",
+        
+        }).then(this.showResult);
     }
 
 
@@ -103,7 +112,8 @@ export default class SavoiPlusScreen extends Component {
                 <View>
                     <View style={styles.footerContainer}>
                         <View style={styles.footerTextContainer}>
-    
+                        <Image style = {{width: width, height: 250}} source={{uri: 'http://172.30.135.172:8080/api/upload/images/'+Data.filename}}/>
+
                             <View style={styles.elmm}>
                             <Text style={styles.text}>{Data.nom}</Text>
                             <Text style={styles.textadd}> <Image 

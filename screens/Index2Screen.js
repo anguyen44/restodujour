@@ -28,7 +28,6 @@ import SavoiPlusScreen from './SavoirPlusScreen';
 
 const {width, height} = Dimensions.get('window');
 
-//export default withNavigation(SavoirPlusScreen);
 export default class Search extends Component {
     static navigationOptions = {
         header: null
@@ -70,7 +69,6 @@ export default class Search extends Component {
   
     showMenu(){
         if(this.state.isOpenMenu){
-            console.log("******************i am open");
             this.setState({isOpenMenu: false})
             Animated.parallel([
                 Animated.timing(
@@ -85,7 +83,6 @@ export default class Search extends Component {
                 )
             ]).start()
         } else {
-            console.log('********************i am close');
             this.setState({isOpenMenu: true})
             Animated.parallel([
                 Animated.timing(
@@ -101,7 +98,6 @@ export default class Search extends Component {
                 Animated.timing(
                     this.state.menuAnimation, {
                         toValue: 1,
-                     //   duration: 800
                      duration: 1000
                     }
                 )
@@ -138,7 +134,7 @@ export default class Search extends Component {
     shareMenu(rowData){
         Share.share({
             message: "Menu du jour: "+ rowData.nom+ "  Entrées : \n \t -" + rowData.entree1 + "\n  \t \t - "+ rowData.entree2 + "\n Plats : \n \t \t-" + rowData.plat1 +"\n" + rowData.plat2 +
-             "\n Dessert: \n \t -" + rowData.dessert1 + "\n  \t \t - "+ rowData.dessert2 +  " \n  Prix : " + rowData.prixPED,
+             "\n Dessert: \n \t -" + rowData.dessert1 + "\n  \t \t - "+ rowData.dessert2 +  " \n  Prix : " + rowData.prixEPD + " euros",
         
         }).then(this.showResult);
     }
@@ -152,7 +148,7 @@ export default class Search extends Component {
                 <View>
                     <View style={styles.footerContainer}>
                         <View style={styles.footerTextContainer}>
-
+       <Image style = {{width: width, height: 250}} source={{uri: 'http://172.30.135.172:8080/api/upload/images/'+rowData.filename}}/>
                             <View style={styles.elmm}>
                             <Text style={styles.text}>{rowData.nom}</Text>
                             <Text style={styles.textadd}> <Image 
@@ -293,12 +289,8 @@ const styles = StyleSheet.create({
     content: {
         zIndex: 1
     },
-    footerContainer: {
-   //    flexDirection: 'row',
-    //   paddingHorizontal: 10,
-    //   paddingVertical: 10,
-      // backgroundColor: '#555566' 
-        paddingBottom: 8,
+    footerContainer: { 
+        paddingBottom: 12,
         paddingLeft:6,
          backgroundColor: '#C0C0C0'
     },
@@ -316,7 +308,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     containerCell: {
-      marginBottom: 10
+      marginBottom: 20
     },
     containerelem: {
         marginBottom: 4
